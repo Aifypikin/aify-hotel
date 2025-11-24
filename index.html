@@ -5,79 +5,185 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AIFY QUEENEST HOTEL Menu</title>
 <style>
+  :root {
+    /* Color Palette */
+    --bg-color: #F9F7F2;       /* Very light beige/linen for background */
+    --card-bg: #FFFFFF;        /* White for item cards */
+    --primary-burgundy: #800020; /* Deep Burgundy */
+    --soft-beige: #E8E4D9;     /* Darker beige for hover states */
+    --text-color: #4A3B3B;     /* Dark Brown/Grey for main text (softer than black) */
+  }
+
   body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #fff;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
   }
-  h1 {
+
+  /* Header Styles */
+  header {
     text-align: center;
-    font-size: 32px;
-    margin-bottom: 20px;
-    text-transform: uppercase;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--primary-burgundy);
   }
+
+  h1 {
+    font-size: 36px;
+    margin: 0;
+    color: var(--primary-burgundy);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Georgia', serif; /* A more professional serif font for the title */
+  }
+
+  .subtitle {
+    font-family: 'Brush Script MT', 'Brush Script Std', cursive; /* The requested font */
+    font-size: 24px; /* Smaller than H1 */
+    color: #A05050; /* A lighter burgundy/rose tone */
+    margin-top: 5px;
+    font-weight: normal;
+  }
+
+  /* Navigation Buttons */
   .buttons {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     overflow-x: auto;
     white-space: nowrap;
     padding: 10px 0;
+    -webkit-overflow-scrolling: touch; /* Smooth scroll on mobile */
   }
+
+  /* Hide scrollbar for neatness */
+  .buttons::-webkit-scrollbar {
+    height: 6px;
+  }
+  .buttons::-webkit-scrollbar-thumb {
+    background: var(--primary-burgundy);
+    border-radius: 3px;
+  }
+
   .buttons button {
-    margin: 5px;
-    padding: 10px 15px;
+    margin: 4px;
+    padding: 10px 20px;
     cursor: pointer;
-    border: 1px solid #ccc;
-    background: #f9f9f9;
-    border-radius: 6px;
-    transition: background 0.3s, color 0.3s;
-    display: inline-block;
+    border: 1px solid var(--primary-burgundy);
+    background: transparent;
+    color: var(--primary-burgundy);
+    border-radius: 30px; /* Pill shape */
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
+
   .buttons button:hover {
-    background: #eee;
+    background: var(--soft-beige);
   }
+
   .buttons button.active {
-    background: #333;
-    color: #fff;
+    background: var(--primary-burgundy);
+    color: #fff; /* White text on active button */
+    box-shadow: 0 4px 10px rgba(128, 0, 32, 0.3);
   }
+
+  /* Menu Sections */
   .menu-section {
     display: none;
     opacity: 0;
     transition: opacity 0.4s ease;
+    max-width: 800px;
+    margin: 0 auto;
   }
+
   .menu-section.active {
     display: block;
     opacity: 1;
+    animation: fadeIn 0.5s ease-in-out;
   }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
   .menu-section h2 {
-    border-bottom: 2px solid #333;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    color: var(--primary-burgundy);
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 25px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
   }
+  
+  /* Decorative lines around section titles */
+  .menu-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-burgundy);
+    margin: 10px auto 0;
+  }
+
+  /* Menu Items Grid */
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive columns */
+    gap: 15px;
+  }
+
   .menu-item {
-    background: #f9f9f9;
-    padding: 10px;
+    background: var(--card-bg);
+    padding: 15px 20px;
     border-radius: 8px;
-    margin: 8px 0;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-    transition: transform 0.2s, background 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Very subtle shadow */
+    border-left: 4px solid var(--soft-beige); /* Beige accent on the left */
+    display: flex;
+    justify-content: space-between; /* Pushes price to the right */
+    align-items: center;
+    transition: transform 0.2s, border-color 0.2s;
   }
+
   .menu-item:hover {
-    background: #eee;
-    transform: scale(1.02);
+    transform: translateY(-2px);
+    border-left-color: var(--primary-burgundy); /* Changes to burgundy on hover */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .item-name {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .item-price {
+    color: var(--primary-burgundy);
+    font-weight: bold;
+    min-width: 80px;
+    text-align: right;
   }
 </style>
 </head>
 <body onload="showSection('breakfast')">
 
-<h1>AIFY QUEENEST HOTEL</h1>
+<header>
+  <h1>AIFY QUEENEST HOTEL</h1>
+  <div class="subtitle">Your satisfaction is our profit</div>
+</header>
 
 <div class="buttons">
   <button onclick="showSection('breakfast', event)">Breakfast</button>
   <button onclick="showSection('protein', event)">Protein & Bites</button>
   <button onclick="showSection('peppersoup', event)">Pepper Soup</button>
   <button onclick="showSection('pasta', event)">Pasta & Noodles</button>
-  <button onclick="showSection('wraps', event)">Wraps, Sandwiches & Snacks</button>
+  <button onclick="showSection('wraps', event)">Wraps & Snacks</button>
   <button onclick="showSection('soup', event)">Soup & Swallow</button>
   <button onclick="showSection('rice', event)">Rice</button>
   <button onclick="showSection('sauces', event)">Sauces</button>
@@ -93,226 +199,260 @@
   <button onclick="showSection('soft', event)">Soft Drinks</button>
 </div>
 
-<!-- FOOD SECTIONS -->
 <div id="breakfast" class="menu-section">
-<h2>Breakfast</h2>
-<div class="menu-item">Yam/Plantain & Egg sauce - N5,000</div>
-<div class="menu-item">Bread and Egg - N3,000</div>
-<div class="menu-item">Full american Breakfast - 12,000</div>
-<div class="menu-item">Pap,akara & plantain - 10,000</div>
-<div class="menu-item">BREAD AND TEA - 1,500</div>
-<div class="menu-item">FULL NIGERIAN BREAKFAST - 8,000</div>
-<div class="menu-item">FULL ENGLISH BREAKFAST - 9,000</div>
+  <h2>Breakfast</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Yam/Plantain & Egg sauce</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Bread and Egg</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Full American Breakfast</span> <span class="item-price">12,000</span></div>
+    <div class="menu-item"><span class="item-name">Pap, Akara & Plantain</span> <span class="item-price">10,000</span></div>
+    <div class="menu-item"><span class="item-name">Bread and Tea</span> <span class="item-price">1,500</span></div>
+    <div class="menu-item"><span class="item-name">Full Nigerian Breakfast</span> <span class="item-price">8,000</span></div>
+    <div class="menu-item"><span class="item-name">Full English Breakfast</span> <span class="item-price">9,000</span></div>
+  </div>
 </div>
 
 <div id="protein" class="menu-section">
-<h2>Protein & Bites</h2>
-<div class="menu-item">Peppered Beef - N4,500</div>
-<div class="menu-item">Peppered Chicken - N5,000</div>
-<div class="menu-item">Peppered Goat - N5,000</div>
-<div class="menu-item">Peppered Turkey - N8,000</div>
-<div class="menu-item">Peppered Fish - N5,500</div>
-<div class="menu-item">Peppered Snail - N12,000</div>
-<div class="menu-item">Sauced Prawns - N15,000</div>
-<div class="menu-item">Beef Skewers - N5,000</div>
-<div class="menu-item">Chicken and Chips - N10,500</div>
-<div class="menu-item">Gizzard - N5,000</div>
-<div class="menu-item">Stockfish - N5,000</div>
-<div class="menu-item">Chicken Wings - N7,000</div>
-<div class="menu-item">Nkwobi - N5,000</div>
-<div class="menu-item">Barbecue Fish - N25,000</div>
-<div class="menu-item">Mixed Grill - N25,000</div>
+  <h2>Protein & Bites</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Peppered Beef</span> <span class="item-price">N4,500</span></div>
+    <div class="menu-item"><span class="item-name">Peppered Chicken</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Peppered Goat</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Peppered Turkey</span> <span class="item-price">N8,000</span></div>
+    <div class="menu-item"><span class="item-name">Peppered Fish</span> <span class="item-price">N5,500</span></div>
+    <div class="menu-item"><span class="item-name">Peppered Snail</span> <span class="item-price">N12,000</span></div>
+    <div class="menu-item"><span class="item-name">Sauced Prawns</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Beef Skewers</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Chicken and Chips</span> <span class="item-price">N10,500</span></div>
+    <div class="menu-item"><span class="item-name">Gizzard</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Stockfish</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Chicken Wings</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Nkwobi</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Barbecue Fish</span> <span class="item-price">N25,000</span></div>
+    <div class="menu-item"><span class="item-name">Mixed Grill</span> <span class="item-price">N25,000</span></div>
+  </div>
 </div>
 
 <div id="peppersoup" class="menu-section">
-<h2>Pepper Soup</h2>
-<div class="menu-item">Goat Meat - N6,000</div>
-<div class="menu-item">Beef - N4,500</div>
-<div class="menu-item">Chicken - N7,000</div>
-<div class="menu-item">Fish - N5,500</div>
-<div class="menu-item">Catfish - N7,000</div>
-<div class="menu-item">COWLEG - 5,000</div>
+  <h2>Pepper Soup</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Goat Meat</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Beef</span> <span class="item-price">N4,500</span></div>
+    <div class="menu-item"><span class="item-name">Chicken</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Fish</span> <span class="item-price">N5,500</span></div>
+    <div class="menu-item"><span class="item-name">Catfish</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Cowleg</span> <span class="item-price">5,000</span></div>
+  </div>
 </div>
 
 <div id="pasta" class="menu-section">
-<h2>Pasta & Noodles</h2>
-<div class="menu-item">Indomie & Egg - N5,000</div>
-<div class="menu-item">Jollof Spaghetti - N4,000</div>
-<div class="menu-item">Spaghetti Bolognese - N7,000</div>
-<div class="menu-item">Stir-fry Spaghetti - N6,000</div>
-<div class="menu-item">Plain Spaghetti - N3,000</div>
-<div class="menu-item">Creamy Pasta - N10,000</div>
-<div class="menu-item">Seafood Pasta - N15,000</div>
+  <h2>Pasta & Noodles</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Indomie & Egg</span> <span class="item-price">N5,000</span></div>
+    <div class="menu-item"><span class="item-name">Jollof Spaghetti</span> <span class="item-price">N4,000</span></div>
+    <div class="menu-item"><span class="item-name">Spaghetti Bolognese</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Stir-fry Spaghetti</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Plain Spaghetti</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Creamy Pasta</span> <span class="item-price">N10,000</span></div>
+    <div class="menu-item"><span class="item-name">Seafood Pasta</span> <span class="item-price">N15,000</span></div>
+  </div>
 </div>
 
 <div id="wraps" class="menu-section">
-<h2>Wraps, Sandwiches & Snacks</h2>
-<div class="menu-item">Chicken Wrap - N7,000</div>
-<div class="menu-item">Beef Wrap - N4,500</div>
-<div class="menu-item">Club Sandwiches - N7,000</div>
-<div class="menu-item">Hamburger - N10,000</div>
-<div class="menu-item">Meat Pie - N1,500</div>
-<div class="menu-item">Short Cakes - N1,000</div>
+  <h2>Wraps, Sandwiches & Snacks</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Chicken Wrap</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Beef Wrap</span> <span class="item-price">N4,500</span></div>
+    <div class="menu-item"><span class="item-name">Club Sandwiches</span> <span class="item-price">N7,000</span></div>
+    <div class="menu-item"><span class="item-name">Hamburger</span> <span class="item-price">N10,000</span></div>
+    <div class="menu-item"><span class="item-name">Meat Pie</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Short Cakes</span> <span class="item-price">N1,000</span></div>
+  </div>
 </div>
 
 <div id="soup" class="menu-section">
-<h2>Soup & Swallow</h2>
-<div class="menu-item">Egusi - N3,000</div>
-<div class="menu-item">Okro - N3,000</div>
-<div class="menu-item">Oha - N2,000</div>
-<div class="menu-item">Vegetable - N3,000</div>
-<div class="menu-item">Bitter Leaf - N2,000</div>
-<div class="menu-item">Ogbono - N3,000</div>
-<div class="menu-item">Nsala - N2,000</div>
-<div class="menu-item">Ofe Anyara - N3,500</div>
-<div class="menu-item">Seafood Okro - N11,000</div>
-<div class="menu-item">Fisherman Soup - N18,000</div>
-<div class="menu-item">Eba - N2,000</div>
-<div class="menu-item">Semo - N2,000</div>
-<div class="menu-item">Poundo - N2,500</div>
+  <h2>Soup & Swallow</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Egusi</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Okro</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Oha</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Vegetable</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Bitter Leaf</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Ogbono</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Nsala</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Ofe Anyara</span> <span class="item-price">N3,500</span></div>
+    <div class="menu-item"><span class="item-name">Seafood Okro</span> <span class="item-price">N11,000</span></div>
+    <div class="menu-item"><span class="item-name">Fisherman Soup</span> <span class="item-price">N18,000</span></div>
+    <div class="menu-item"><span class="item-name">Eba</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Semo</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Poundo</span> <span class="item-price">N2,500</span></div>
+  </div>
 </div>
 
 <div id="rice" class="menu-section">
-<h2>Rice</h2>
-<div class="menu-item">White Rice & Stew - N3,000</div>
-<div class="menu-item">Jollof Rice - N3,000</div>
-<div class="menu-item">Fried Rice - N4,000</div>
-<div class="menu-item">Oriental Chicken Rice - N6,000</div>
-<div class="menu-item">Plain White Rice - N2,500</div>
-<div class="menu-item">Chinese Rice - N6,000</div>
-<div class="menu-item">Native Rice - N4,000</div>
+  <h2>Rice</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">White Rice & Stew</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Jollof Rice</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Fried Rice</span> <span class="item-price">N4,000</span></div>
+    <div class="menu-item"><span class="item-name">Oriental Chicken Rice</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Plain White Rice</span> <span class="item-price">N2,500</span></div>
+    <div class="menu-item"><span class="item-name">Chinese Rice</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Native Rice</span> <span class="item-price">N4,000</span></div>
+  </div>
 </div>
 
 <div id="sauces" class="menu-section">
-<h2>Sauces</h2>
-<div class="menu-item">Cowleg Sauce - N4,000</div>
-<div class="menu-item">Chicken Sauce - N6,000</div>
-<div class="menu-item">Beef Sauce - N6,000</div>
-<div class="menu-item">Prawns Sauce - N15,000</div>
-<div class="menu-item">Seafood Sauce - N18,000</div>
+  <h2>Sauces</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Cowleg Sauce</span> <span class="item-price">N4,000</span></div>
+    <div class="menu-item"><span class="item-name">Chicken Sauce</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Beef Sauce</span> <span class="item-price">N6,000</span></div>
+    <div class="menu-item"><span class="item-name">Prawns Sauce</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Seafood Sauce</span> <span class="item-price">N18,000</span></div>
+  </div>
 </div>
 
 <div id="sides" class="menu-section">
-<h2>Sides</h2>
-<div class="menu-item">Plantain - N2,000</div>
-<div class="menu-item">Yam - N2,000</div>
-<div class="menu-item">Egg - N2,000</div>
-<div class="menu-item">Moi-moi - N1,500</div>
-<div class="menu-item">Coleslaw - N2,500</div>
-<div class="menu-item">Potato Chips - N3,000</div>
+  <h2>Sides</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Plantain</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Yam</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Egg</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Moi-moi</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Coleslaw</span> <span class="item-price">N2,500</span></div>
+    <div class="menu-item"><span class="item-name">Potato Chips</span> <span class="item-price">N3,000</span></div>
+  </div>
 </div>
 
-<!-- DRINKS -->
 <div id="wines" class="menu-section">
-<h2>Wines</h2>
-<div class="menu-item">Night Train - N12,000</div>
-<div class="menu-item">Ocean Beach - N15,000</div>
-<div class="menu-item">Castillo - N12,000</div>
-<div class="menu-item">Carlo Rossi - N20,000</div>
-<div class="menu-item">Dominio - N12,000</div>
-<div class="menu-item">Chamdor - N15,000</div>
-<div class="menu-item">Frontera - N12,000</div>
-<div class="menu-item">Escudo Rojo - N40,000</div>
-<div class="menu-item">Joven - N15,000</div>
-<div class="menu-item">Don Simon - N15,000</div>
-<div class="menu-item">Four Cousin - N20,000</div>
+  <h2>Wines</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Night Train</span> <span class="item-price">N12,000</span></div>
+    <div class="menu-item"><span class="item-name">Ocean Beach</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Castillo</span> <span class="item-price">N12,000</span></div>
+    <div class="menu-item"><span class="item-name">Carlo Rossi</span> <span class="item-price">N20,000</span></div>
+    <div class="menu-item"><span class="item-name">Dominio</span> <span class="item-price">N12,000</span></div>
+    <div class="menu-item"><span class="item-name">Chamdor</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Frontera</span> <span class="item-price">N12,000</span></div>
+    <div class="menu-item"><span class="item-name">Escudo Rojo</span> <span class="item-price">N40,000</span></div>
+    <div class="menu-item"><span class="item-name">Joven</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Don Simon</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Four Cousin</span> <span class="item-price">N20,000</span></div>
+  </div>
 </div>
 
 <div id="sparkling" class="menu-section">
-<h2>Sparkling Wines</h2>
-<div class="menu-item">Mateus Rose - N15,000</div>
-<div class="menu-item">Andre - N20,000</div>
-<div class="menu-item">V.De Vernay - N20,000</div>
-<div class="menu-item">Moscato - N20,000</div>
-<div class="menu-item">Peach Club - N10,000</div>
-<div class="menu-item">Grandet - N10,000</div>
-<div class="menu-item">Four Cousins - N15,000</div>
-<div class="menu-item">Moet - N160,000</div>
-<div class="menu-item">Cliquot - N150,000</div>
+  <h2>Sparkling Wines</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Mateus Rose</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Andre</span> <span class="item-price">N20,000</span></div>
+    <div class="menu-item"><span class="item-name">V.De Vernay</span> <span class="item-price">N20,000</span></div>
+    <div class="menu-item"><span class="item-name">Moscato</span> <span class="item-price">N20,000</span></div>
+    <div class="menu-item"><span class="item-name">Peach Club</span> <span class="item-price">N10,000</span></div>
+    <div class="menu-item"><span class="item-name">Grandet</span> <span class="item-price">N10,000</span></div>
+    <div class="menu-item"><span class="item-name">Four Cousins</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Moet</span> <span class="item-price">N160,000</span></div>
+    <div class="menu-item"><span class="item-name">Cliquot</span> <span class="item-price">N150,000</span></div>
+  </div>
 </div>
 
 <div id="cognac" class="menu-section">
-<h2>Cognac’s</h2>
-<div class="menu-item">Hennessey VS - N90,000</div>
-<div class="menu-item">Hennes. VSOP - N130,000</div>
-<div class="menu-item">Hennessey XO - N450,000</div>
-<div class="menu-item">Martell VS - N70,000</div>
-<div class="menu-item">Martell B.S. - N130,000</div>
-<div class="menu-item">Remy Martin - N130,000</div>
+  <h2>Cognac’s</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Hennessey VS</span> <span class="item-price">N90,000</span></div>
+    <div class="menu-item"><span class="item-name">Hennes. VSOP</span> <span class="item-price">N130,000</span></div>
+    <div class="menu-item"><span class="item-name">Hennessey XO</span> <span class="item-price">N450,000</span></div>
+    <div class="menu-item"><span class="item-name">Martell VS</span> <span class="item-price">N70,000</span></div>
+    <div class="menu-item"><span class="item-name">Martell B.S.</span> <span class="item-price">N130,000</span></div>
+    <div class="menu-item"><span class="item-name">Remy Martin</span> <span class="item-price">N130,000</span></div>
+  </div>
 </div>
 
 <div id="whiskey" class="menu-section">
-<h2>Whiskey & Blends</h2>
-<div class="menu-item">Jameson - N35,000</div>
-<div class="menu-item">Red Label - N30,000</div>
-<div class="menu-item">Black Label - N50,000</div>
-<div class="menu-item">Double Black - N90,000</div>
-<div class="menu-item">Gold Label - N90,000</div>
-<div class="menu-item">Jack Daniel’s - N45,000</div>
-<div class="menu-item">J. Bannerman - N15,000</div>
-<div class="menu-item">Glenfiddich 21YRS - N500,000</div>
-<div class="menu-item">Glenfiddich 18YRS - N180,000</div>
-<div class="menu-item">Glenfiddich 15YRS - N150,000</div>
-<div class="menu-item">Glenfiddich 12YRS - N100,000</div>
-<div class="menu-item">Bayleys - N30,000</div>
+  <h2>Whiskey & Blends</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Jameson</span> <span class="item-price">N35,000</span></div>
+    <div class="menu-item"><span class="item-name">Red Label</span> <span class="item-price">N30,000</span></div>
+    <div class="menu-item"><span class="item-name">Black Label</span> <span class="item-price">N50,000</span></div>
+    <div class="menu-item"><span class="item-name">Double Black</span> <span class="item-price">N90,000</span></div>
+    <div class="menu-item"><span class="item-name">Gold Label</span> <span class="item-price">N90,000</span></div>
+    <div class="menu-item"><span class="item-name">Jack Daniel’s</span> <span class="item-price">N45,000</span></div>
+    <div class="menu-item"><span class="item-name">J. Bannerman</span> <span class="item-price">N15,000</span></div>
+    <div class="menu-item"><span class="item-name">Glenfiddich 21YRS</span> <span class="item-price">N500,000</span></div>
+    <div class="menu-item"><span class="item-name">Glenfiddich 18YRS</span> <span class="item-price">N180,000</span></div>
+    <div class="menu-item"><span class="item-name">Glenfiddich 15YRS</span> <span class="item-price">N150,000</span></div>
+    <div class="menu-item"><span class="item-name">Glenfiddich 12YRS</span> <span class="item-price">N100,000</span></div>
+    <div class="menu-item"><span class="item-name">Bayleys</span> <span class="item-price">N30,000</span></div>
+  </div>
 </div>
 
 <div id="vodka" class="menu-section">
-<h2>Vodka’s</h2>
-<div class="menu-item">Ciroc - N50,000</div>
-<div class="menu-item">Ciroc (s.c.) - N70,000</div>
-<div class="menu-item">Magic Mom - N25,000</div>
-<div class="menu-item">Absolute - N25,000</div>
-<div class="menu-item">Smirnoff - N25,000</div>
+  <h2>Vodka’s</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Ciroc</span> <span class="item-price">N50,000</span></div>
+    <div class="menu-item"><span class="item-name">Ciroc (s.c.)</span> <span class="item-price">N70,000</span></div>
+    <div class="menu-item"><span class="item-name">Magic Mom</span> <span class="item-price">N25,000</span></div>
+    <div class="menu-item"><span class="item-name">Absolute</span> <span class="item-price">N25,000</span></div>
+    <div class="menu-item"><span class="item-name">Smirnoff</span> <span class="item-price">N25,000</span></div>
+  </div>
 </div>
 
 <div id="bitters" class="menu-section">
-<h2>Bitters</h2>
-<div class="menu-item">Odogwu - N3,000</div>
-<div class="menu-item">Kolaq Alagbo - N2,000</div>
-<div class="menu-item">1960 - N2,000</div>
-<div class="menu-item">Small Origin - N1,500</div>
-<div class="menu-item">Big Origin - N10,000</div>
-<div class="menu-item">S. Campari - N9,000</div>
-<div class="menu-item">B. Campari - N35,000</div>
+  <h2>Bitters</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Odogwu</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Kolaq Alagbo</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">1960</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Small Origin</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Big Origin</span> <span class="item-price">N10,000</span></div>
+    <div class="menu-item"><span class="item-name">S. Campari</span> <span class="item-price">N9,000</span></div>
+    <div class="menu-item"><span class="item-name">B. Campari</span> <span class="item-price">N35,000</span></div>
+  </div>
 </div>
 
 <div id="beers" class="menu-section">
-<h2>Beers</h2>
-<div class="menu-item">Budweiser - N2,500</div>
-<div class="menu-item">Heineken - N2,00</div>
-<div class="menu-item">Hero - N1,500</div>
-<div class="menu-item">Life - N1,500</div>
-<div class="menu-item">B. Guinness - N3,000</div>
-<div class="menu-item">M. Guinness - N2,500</div>
-<div class="menu-item">S. Guinness - N2,000</div>
-<div class="menu-item">Tiger Beer - N1,500</div>
-<div class="menu-item">Desperados - N2,000</div>
-<div class="menu-item">Star Radler - N1,500</div>
-<div class="menu-item">Smirnoff ice - 1,500</div>
+  <h2>Beers</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Budweiser</span> <span class="item-price">N2,500</span></div>
+    <div class="menu-item"><span class="item-name">Heineken</span> <span class="item-price">N2,00</span></div>
+    <div class="menu-item"><span class="item-name">Hero</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Life</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">B. Guinness</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">M. Guinness</span> <span class="item-price">N2,500</span></div>
+    <div class="menu-item"><span class="item-name">S. Guinness</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Tiger Beer</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Desperados</span> <span class="item-price">N2,000</span></div>
+    <div class="menu-item"><span class="item-name">Star Radler</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Smirnoff ice</span> <span class="item-price">1,500</span></div>
+  </div>
 </div>
 
 <div id="energy" class="menu-section">
-<h2>Energy Drinks</h2>
-<div class="menu-item">Monster - N2,500</div>
-<div class="menu-item">Predator - N1,000</div>
-<div class="menu-item">Black Bullet - N3,000</div>
-<div class="menu-item">Powerhouse - N2,500</div>
+  <h2>Energy Drinks</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Monster</span> <span class="item-price">N2,500</span></div>
+    <div class="menu-item"><span class="item-name">Predator</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Black Bullet</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Powerhouse</span> <span class="item-price">N2,500</span></div>
+  </div>
 </div>
 
 <div id="soft" class="menu-section">
-<h2>Soft Drinks</h2>
-<div class="menu-item">Exotic - N3,000</div>
-<div class="menu-item">Active Chivita - N3,000</div>
-<div class="menu-item">Fayrouz - N1,000</div>
-<div class="menu-item">Coke - N1,000</div>
-<div class="menu-item">Fanta - N1,000</div>
-<div class="menu-item">Sprite - N1,000</div>
-<div class="menu-item">Soda Water - N1,000</div>
-<div class="menu-item">Small Water - N800</div>
-<div class="menu-item">Big Water - N1,500</div>
-<div class="menu-item">Hollandia - N3,000</div>
-<div class="menu-item">Malt - N1,500</div>
+  <h2>Soft Drinks</h2>
+  <div class="menu-grid">
+    <div class="menu-item"><span class="item-name">Exotic</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Active Chivita</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Fayrouz</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Coke</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Fanta</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Sprite</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Soda Water</span> <span class="item-price">N1,000</span></div>
+    <div class="menu-item"><span class="item-name">Small Water</span> <span class="item-price">N800</span></div>
+    <div class="menu-item"><span class="item-name">Big Water</span> <span class="item-price">N1,500</span></div>
+    <div class="menu-item"><span class="item-name">Hollandia</span> <span class="item-price">N3,000</span></div>
+    <div class="menu-item"><span class="item-name">Malt</span> <span class="item-price">N1,500</span></div>
+  </div>
 </div>
 
 <script>
@@ -320,11 +460,18 @@ function showSection(sectionId, event) {
   const sections = document.querySelectorAll('.menu-section');
   sections.forEach(sec => {
     sec.classList.remove('active');
-    sec.style.display = 'none';
+    setTimeout(() => {
+        if(!sec.classList.contains('active')) sec.style.display = 'none';
+    }, 400); // Wait for fade out
   });
 
   const selected = document.getElementById(sectionId);
+  // Small delay to allow others to fade out, or instant switch
+  const allSections = document.querySelectorAll('.menu-section');
+  allSections.forEach(s => s.style.display = 'none');
+  
   selected.style.display = 'block';
+  // Small timeout to allow the browser to register display:block before adding opacity class
   setTimeout(() => selected.classList.add('active'), 10);
 
   const buttons = document.querySelectorAll('.buttons button');
@@ -334,8 +481,3 @@ function showSection(sectionId, event) {
 </script>
 </body>
 </html>
-
-
-
-
-
